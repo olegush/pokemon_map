@@ -2,7 +2,6 @@
 
 ![sample text](https://dvmn.org/filer/canonical/1563275070/172/)
 
-### Предметная область
 
 Сайт для помощи по игре [Pokemon GO](https://www.pokemongo.com/en-us/). Это игра про ловлю [покемонов](https://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%BA%D0%B5%D0%BC%D0%BE%D0%BD).
 
@@ -14,16 +13,36 @@
 
 ![bulba evolution](https://dvmn.org/filer/canonical/1562265973/167/)
 
-### Как запустить
 
-- Скачайте код
-- Установите зависимости командой `pip install -r requirements.txt`
-- Запустите сервер командой `python3 manage.py runserver`
+# Как запустить
 
-### Переменные окружения
+1. Установите Python 3 и зависимости из **requirements.txt**. Желательно использовать виртуальное окружение, например  с помощью инструмента **virtualenv**.
 
-Часть настроек проекта берётся из переменных окружения. Чтобы их определить, создайте файл `.env` рядом с `manage.py` и запишите туда данные в таком формате: `ПЕРЕМЕННАЯ=значение`.
+```bash
+virtualenv virtualenv_folder_name
+source virtualenv_folder_name/bin/activate
+python3 -m pip install -r requirements.txt
+```
 
-Доступны 2 переменные:
+2. Определите переменные окружения:
 - `DEBUG` — дебаг-режим. Поставьте True, чтобы увидеть отладочную информацию в случае ошибки.
 - `SECRET_KEY` — секретный ключ проекта
+
+3. Запустите сервер командой:
+```bash
+python3 manage.py runserver
+```
+
+4. Создайте администратора
+```bash
+python3 manage.py createsuperuser
+```
+
+5. Добавьте экземпляры объекта Покемон в базу данных
+
+6. Заходите на http://127.0.0.1:8000/ и удачи в ловле!
+
+
+# Цели проекта
+
+Код создан в учебных целях. В рамках учебного курса по веб-разработке - [DVMN.org](https://dvmn.org)
