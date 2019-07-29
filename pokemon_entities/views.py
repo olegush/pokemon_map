@@ -45,21 +45,18 @@ def show_all_pokemons(request):
         'pokemons': pokemons_on_page,
     })
 
-
+from django.forms.models import model_to_dict
 def show_pokemon(request, pokemon_id):
-    pokemon = get_object_or_404(Pokemon, id=pokemon_id).__dict__
-    pokemon['img_url'] = '{}{}{}'.format(
-                                    HOST,
-                                    settings.MEDIA_URL,
-                                    pokemon['image']) if pokemon['image'] else ''
-    if pokemon['next_evolution_id']:
-        pokemon_next_evolution = Pokemon.objects.filter(id=pokemon['next_evolution_id'])[0]
+    pokemon = model_to_dict(get_object_or_404(Pokemon, id=pokemon_id))
+    pokemon['img_url'] = f"{HOST}{pokemon['image'].url}"
+    if pokemon['next_evolution']:
+        pokemon_next_evolution = Pokemon.objects.get(id=pokemon['next_evolution'])
         pokemon['next_evolution'] = {
                     'pokemon_id': pokemon_next_evolution.id,
                     'title_ru': pokemon_next_evolution.title_ru,
                     'img_url': f'{HOST}{pokemon_next_evolution.image.url}'}
-    if pokemon['previous_evolution_id']:
-        pokemon_previous_evolution = Pokemon.objects.filter(id=pokemon['previous_evolution_id'])[0]
+    if pokemon['previous_evolution']:
+        pokemon_previous_evolution = Pokemon.objects.get(id=pokemon['previous_evolution'])
         pokemon['previous_evolution'] = {
                     'pokemon_id': pokemon_previous_evolution.id,
                     'title_ru': pokemon_previous_evolution.title_ru,
